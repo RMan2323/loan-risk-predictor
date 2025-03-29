@@ -9,7 +9,18 @@ Aariz: SVM
 
 Abhinandan: Neural Network
 
-### String replacements:
+### CSV Files:
+|Name|Description|
+|---|---|
+|21.csv|Given file|
+|Str_To_Int.csv|Converted string classes to integers|
+|One-Hot.csv|Converted string classes to different one-hot columns|
+|_Orig_Int|Original data with string-integer replacements|
+|_Scaled_Int|Standardized data with string-integer replacements|
+|_Orig_OH|Original data with one-hot encoding|
+|_Scaled_OH|Standardized data with one-hot encoding|
+
+#### String replacements:
 | Int | EmploymentStatus |
 | --- | --- |
 |0|Employed|
