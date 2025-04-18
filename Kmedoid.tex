@@ -1,0 +1,106 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{K-Medoids Clustering Report}
+\author{Aariz Shaikh}
+\date{April 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Results and Observations}
+
+\subsection{K-Medoids Clustering}
+
+Experiments were conducted using K-Medoids clustering on different variations of preprocessed datasets. The optimal number of clusters (K) was determined using the Silhouette score. Inertia was also calculated for each dataset.
+
+\begin{table}[H]
+\centering
+\caption{Performance Metrics for Different Datasets using K-Medoids Clustering (K=2)}
+\begin{tabular}{|c|l|c|c|}
+\hline
+\textbf{S.No} & \textbf{Dataset} & \textbf{Silhouette Score} & \textbf{Inertia} \\
+\hline
+0 & Train\_Scaled\_Cont\_OH.csv & 0.020905 & 91323.673402 \\
+1 & Train\_MM\_OH.csv & 0.020905 & 91323.673402 \\
+2 & train\_OH\_MM\_PCA15.csv & 0.071245 & 48832.189519 \\
+3 & train\_OH\_MM\_PCA20.csv & 0.032095 & 57938.435981 \\
+4 & train\_OH\_MM\_PCA25.csv & 0.032465 & 64564.495058 \\
+5 & train\_OH\_MM\_PCA30.csv & 0.022067 & 71582.557634 \\
+6 & train\_OH\_MM\_PCA35.csv & 0.020132 & 77578.418111 \\
+7 & Train\_Scaled\_Cont\_Int.csv & 0.024165 & 70411.072568 \\
+8 & Train\_MM\_Int.csv & 0.024165 & 70411.072568 \\
+9 & train\_Int\_MM_PCA10.csv & 0.068794 & 36153.897856 \\
+10 & train\_Int\_MM_PCA15.csv & 0.045488 & 46035.836064 \\
+11 & train\_Int\_MM_PCA20.csv & 0.032297 & 55019.387744 \\
+12 & train\_Int\_MM_PCA25.csv & 0.026684 & 62399.740681 \\
+\hline
+\end{tabular}
+\label{tab:kmedoids_results}
+\end{table}
+\subsection{Best Datasets}
+\subsubsection{Clustering Visualization}
+
+
+
+\subsubsection{Clustering - Train\_Scaled\_Cont\_Int.csv}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Train_Scaled_Cont_Int_.png}
+    \caption{Clustering - Train\_Scaled\_Cont\_OH.csv}
+    \label{fig:_scaled_cont_int}
+\end{figure}
+
+\subsubsection{Clustering - Train\_MM\_Int.csv}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Train_MM_OH_Inertia.png}
+    \caption{Inertia (Elbow Method) - Train\_MM\_OH.csv}
+    \label{fig:inertia_mm_oh}
+\end{figure}
+
+
+
+\subsection{Silhouette Score Visualization}
+
+The following figures show the Silhouette score plots for selected datasets with k=2,3,4, to determine the optimal number of clusters.
+
+\subsubsection{Silhouette - Train\_Scaled\_Cont\_Int.csv}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Train_Scaled_Cont_Int_Silhouette.png}
+    \caption{Silhouette Score - Train\_Scaled\_Cont\_Int.csv}
+    \label{fig:silhouette_scaled_cont_Int}
+\end{figure}
+
+\subsubsection{Silhouette - Train\_MM\_Int.csv}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Train_MM_OH_Silhouette.png}
+    \caption{Silhouette Score - Train\_MM\_Int.csv}
+    \label{fig:silhouette_mm_Int}
+\end{figure}
+
+
+
+\subsection{Key Observations}
+
+\begin{itemize}
+    \item For all datasets, the best number of clusters (K) was found to be 2 based on the Silhouette score.
+    \item Datasets preprocessed with PCA generally exhibited higher Silhouette scores, suggesting better-defined clusters.
+\end{itemize}
+
+\section{Conclusion}
+
+K-Medoids clustering consistently identified 2 clusters as optimal across various preprocessed datasets, suggesting the presence of two distinct groupings within the data. The higher Silhouette scores observed with PCA-transformed datasets indicate improved cluster separation after dimensionality reduction.
+
+\end{document}

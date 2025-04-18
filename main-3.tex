@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\begin{document}
+
+\section{Hierarchical Clustering}
+
+Hierarchical clustering builds nested clusters by successively merging or splitting them based on a similarity measure. In this study, we applied \textbf{agglomerative hierarchical clustering} using different linkage criteria to identify natural groupings in the applicant data.
+
+\subsection{Optimal Number of Clusters: Elbow Method}
+
+To determine the optimal number of clusters, the \textbf{Elbow Method} was used by plotting Silhouette Score for a range of cluster values.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{REcent.png}
+    \caption{Elbow Method to Determine Optimal Number of Clusters}
+\end{figure}
+
+As seen in the figure, the elbow occurs at \( k = 2 \) indicating the optimal number of clusters for hierarchical clustering.
+
+\subsection{Comparison of Linkage Methods}
+
+We experimented with four commonly used linkage methods: \texttt{ward}, \texttt{average}, \texttt{complete}, and \texttt{single}. After assigning clusters using each method, we evaluated the clustering quality using the \textbf{Purity Score}. The results are summarized below:
+
+\begin{table}[h!]
+    \centering
+    \caption{Purity Scores for Different Linkage Methods}
+    \begin{tabular}{@{}lc@{}}
+    \toprule
+    \textbf{Linkage Method} & \textbf{Purity Score} \\
+    \midrule
+    Ward     & 0.85 \\
+    Average  & 0.78 \\
+    Complete & 0.81 \\
+    Single   & 0.65 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Cluster Visualization and Interpretation}
+
+Based on both purity and visual coherence, the \texttt{ward} linkage method performed best. Clusters formed by this method were compact and well-separated in reduced PCA space.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Best Cluster.png}
+    \caption{Hierarchical Clustering Results (Ward Linkage, PCA-2 Projection)}
+\end{figure}
+
+\subsection*{Conclusion}
+
+Hierarchical clustering, particularly with Ward's linkage, revealed well-formed clusters in the data. The purity scores confirm that Ward linkage produces the best alignment with the ground truth risk categories. Other linkage methods like \texttt{average} and \texttt{complete} also performed reasonably well, while \texttt{single} linkage was more sensitive to noise and produced weaker results.
+\section{DBSCAN Clustering}
+
+Density-Based Spatial Clustering of Applications with Noise (DBSCAN) is a non-parametric, density-based clustering algorithm. Unlike hierarchical clustering, DBSCAN does not require the number of clusters to be specified beforehand. It identifies core points in dense regions and expands clusters based on neighborhood connectivity, while automatically detecting and labeling sparse points as noise.
+
+\subsection{Choosing Optimal \texttt{eps} using k-Distance Graph}
+
+The performance of DBSCAN heavily depends on the choice of the \texttt{eps} (neighborhood radius) and \texttt{min\_samples} parameters. To determine a suitable value for \texttt{eps}, we plotted the \textbf{k-distance graph}, which shows the distance to the $k$-th nearest neighbor for each point, sorted in ascending order.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{k_distance.png}
+    \caption{k-Distance Graph for Selecting \texttt{eps} in DBSCAN}
+\end{figure}
+
+The "knee" or inflection point in the curve suggests an appropriate \texttt{eps} value. Based on the plot, we selected \texttt{eps = 0.5} and \texttt{min\_samples = 5}
+
+\subsection{Clustering Results and Visualization}
+
+DBSCAN successfully identified high-density clusters and labeled outliers as noise points. These noise points often corresponded to applicants with unusual financial behavior or extreme values in their credit profile.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{CLuster.png}
+    \caption{DBSCAN Clustering Result (PCA-2 Projection)}
+\end{figure}
+
+\newpage
+\subsection*{Conclusion}
+
+DBSCAN provided a flexible and powerful way to detect both dense clusters and noise in the applicant data. Unlike hierarchical clustering, it did not require a predefined number of clusters and was particularly effective in identifying anomalous financial patterns. However, DBSCAN was found to be \textbf{less favorable for this dataset}, as the applicant data is highly dense and lacks well-separated low-density regions. This made it challenging for DBSCAN to form distinct clusters, often resulting in either a single large cluster or excessive noise points depending on the choice of \texttt{eps}. While it achieved strong purity scores at certain configurations, its sensitivity to parameters and the uniformly dense nature of the data limit its practical applicability in this scenario.
+
+
+
+
+\end{document}
